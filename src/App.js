@@ -1,6 +1,7 @@
 import { Component } from "react";
 import "./App.css";
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 import productData from './data/productData'
 
 
@@ -11,7 +12,7 @@ class App extends Component {
     this.state = {
       cart: [],
       numOfItems: 0,
-      products: productData,
+      products: productData[0],
     };
   };
 
@@ -29,21 +30,24 @@ addItem = () => {
       
    return (
       <>
-        <h1>My Garage Sale</h1>
+        <h1 className='heading'>My Garage Sale</h1>
         <div className='products'>
           {productData.map(({name, price, description, img}) => (
             <div key={name}>
               <h2>{name}</h2>
               <p>${price}</p>
-              <p><button>Add To Cart</button></p>
+              <p><button onClick={this.addItem}>Add To Cart</button></p>
               <img src={img} alt='{name}' />
+              <p>{description}</p>
               </div>
-          ))}
+          ))};
         </div>
-        <Cart />
+        <Cart 
+        addItem={this.state.cart}
+        />
+        <Checkout />
        </>
      )
-  
     };
   }
 
